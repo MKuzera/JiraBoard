@@ -1,0 +1,6 @@
+@MiddleStepService_HostAddress = http://localhost:5255
+
+GET {{MiddleStepService_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

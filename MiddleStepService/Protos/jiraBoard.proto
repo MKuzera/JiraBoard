@@ -1,0 +1,84 @@
+syntax = "proto3";
+
+option csharp_namespace = "JiraBoardgRPC";
+
+package jiraBoard;
+
+service JiraBoard {
+  rpc GetTask (TaskID) returns (JiraTask);
+  rpc GetAllTasks (EmptyRequest) returns (stream JiraTask);
+  rpc CreateTask (NewJiraTask) returns (Response);
+  rpc UpdateTask (JiraTask) returns (Response);
+  rpc DeleteTask (TaskID) returns (Response);
+}
+
+message EmptyRequest{
+}
+
+message TaskID {
+  int32 taskId = 1;
+}
+
+message Response{
+  bool success = 1;
+  string message  =2;
+}
+
+message NewJiraTask {
+  JiraTaskType type = 1;
+  int32 reporterID = 2;
+  int32 assigneeID = 3;
+  string summary = 4;
+  string description = 5;
+  JiraTaskPriority priority = 6;
+  repeated Comment comments = 7;
+  JiraTaskStatus taskStatus = 8;
+  string closingMessage = 9;
+  repeated int32 subTasksIds = 10;
+}
+
+message JiraTask {
+  int32 id = 1;
+  JiraTaskType type = 2;
+  int32 reporterID = 3;
+  int32 assigneeID = 4;
+  string summary = 5;
+  string description = 6;
+  JiraTaskPriority priority = 7;
+  repeated Comment comments = 8;
+  JiraTaskStatus taskStatus = 9;
+  string closingMessage = 10;
+  repeated int32 subTasksIds = 11;
+}
+
+message Comment {
+  string value = 1;
+  int32 authorId = 2;
+  string commentDate = 3;
+}
+
+enum JiraTaskPriority {
+  low = 0;
+  medium = 1;
+  high = 2;
+}
+
+enum JiraTaskStatus {
+  new = 0;
+  inDevelopment = 1;
+  inTest = 2;
+  inReview = 3;
+  resolved = 4;
+  completed = 5;
+}
+
+enum JiraTaskType {
+  undefined = 0;
+  issue = 1;
+  epic = 2;
+  story = 3;
+  spike = 4;
+  bug = 5;
+  task = 6;
+  subTask = 7;
+}
