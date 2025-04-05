@@ -6,7 +6,7 @@
     /// </summary>
     public class FakeDatabase : IDataBaseService
     {
-        List<UserModel> users = new List<UserModel>
+        public static List<UserModel> users = new List<UserModel>
         {
             new UserModel
             {
@@ -45,39 +45,39 @@
         public static List<JiraTask> JiraTasks { get; } = new List<JiraTask>
         {
             new JiraTask {
-                Id = 1, Type = JiraTaskType.Task, ReporterID = 101, AssigneeID = 201,
+                Id = 1, Type = JiraTaskType.Task, ReporterID = 1, AssigneeID = 2,
                 Summary = "Implement login feature", Description = "Create authentication module",
                 Priority = JiraTaskPriority.High, TaskStatus = JiraTaskStatus.InDevelopment,
                 ClosingMessage = "", SubTasksIds = { 2, 3 },
-                Comments = { new Comment { Value = "Initial setup done", AuthorId = 101, CommentDate = DateTime.UtcNow.ToString() } }
+                Comments = { new Comment { Value = "Initial setup done", AuthorId = 1, CommentDate = DateTime.UtcNow.ToString() } }
             },
             new JiraTask {
-                Id = 2, Type = JiraTaskType.SubTask, ReporterID = 101, AssigneeID = 202,
+                Id = 2, Type = JiraTaskType.SubTask, ReporterID = 1, AssigneeID = 2,
                 Summary = "Database schema for auth", Description = "Design tables for user authentication",
                 Priority = JiraTaskPriority.Medium, TaskStatus = JiraTaskStatus.Completed,
                 ClosingMessage = "Schema approved", SubTasksIds = {},
-                Comments = { new Comment { Value = "Schema created", AuthorId = 102, CommentDate = DateTime.UtcNow.ToString() } }
+                Comments = { new Comment { Value = "Schema created", AuthorId = 4, CommentDate = DateTime.UtcNow.ToString() } }
             },
             new JiraTask {
-                Id = 3, Type = JiraTaskType.SubTask, ReporterID = 101, AssigneeID = 203,
+                Id = 3, Type = JiraTaskType.SubTask, ReporterID = 2, AssigneeID = 3,
                 Summary = "JWT implementation", Description = "Setup JWT authentication flow",
                 Priority = JiraTaskPriority.High, TaskStatus = JiraTaskStatus.Resolved,
                 ClosingMessage = "JWT auth working", SubTasksIds = {},
-                Comments = { new Comment { Value = "JWT added", AuthorId = 103, CommentDate = DateTime.UtcNow.ToString() } }
+                Comments = { new Comment { Value = "JWT added", AuthorId = 3, CommentDate = DateTime.UtcNow.ToString() } }
             },
             new JiraTask {
-                Id = 4, Type = JiraTaskType.Bug, ReporterID = 104, AssigneeID = 204,
+                Id = 4, Type = JiraTaskType.Bug, ReporterID = 3, AssigneeID =3,
                 Summary = "Fix login redirect", Description = "Redirection issue after login",
                 Priority = JiraTaskPriority.High, TaskStatus = JiraTaskStatus.InTest,
                 ClosingMessage = "", SubTasksIds = {},
-                Comments = { new Comment { Value = "Issue reproduced", AuthorId = 104, CommentDate = DateTime.UtcNow.ToString() } }
+                Comments = { new Comment { Value = "Issue reproduced", AuthorId = 2, CommentDate = DateTime.UtcNow.ToString() } }
             },
             new JiraTask {
-                Id = 5, Type = JiraTaskType.Story, ReporterID = 105, AssigneeID = 205,
+                Id = 5, Type = JiraTaskType.Story, ReporterID = 4, AssigneeID = 1,
                 Summary = "User profile feature", Description = "Allow users to update profile info",
                 Priority = JiraTaskPriority.Medium, TaskStatus = JiraTaskStatus.New,
                 ClosingMessage = "", SubTasksIds = {},
-                Comments = { new Comment { Value = "Feature planned", AuthorId = 105, CommentDate = DateTime.UtcNow.ToString() } }
+                Comments = { new Comment { Value = "Feature planned", AuthorId = 1, CommentDate = DateTime.UtcNow.ToString() } }
             }
         };
 
