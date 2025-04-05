@@ -1,6 +1,7 @@
 ﻿using JiraBoardgRPC;
+using MiddleStepService.Models;
 
-namespace MiddleStepService.Models
+namespace MiddleStepService.Serializers
 {
     public class GRPCSerializer
     {

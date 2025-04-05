@@ -31,6 +31,14 @@
                 Email = "marek.zielinski@example.com",
                 Id = 3,
                 Password = "123"
+            },
+               new UserModel
+            {
+                FirstName = "Test",
+                LastName = "Test",
+                Email = "test@test.com",
+                Id = 4,
+                Password = "test"
             }
         };
 

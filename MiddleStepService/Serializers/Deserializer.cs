@@ -48,5 +48,37 @@
                 SubTasksIds = grpcNewTask.SubTasksIds.ToList()
             };
         }
+
+        public static DeserializedUserResponse DeserializeUserResponse(UserResponse grpcResponse)
+        {
+            return new DeserializedUserResponse
+            {
+                FirstName = grpcResponse.FirstName,
+                LastName = grpcResponse.LastName,
+                Email = grpcResponse.Email,
+                Id = grpcResponse.Id
+            };
+        }
+
+        public static DeserializedRegisterRequest DeserializeRegisterRequest(RegisterRequest grpcRequest)
+        {
+            return new DeserializedRegisterRequest
+            {
+                FirstName = grpcRequest.FirstName,
+                LastName = grpcRequest.LastName,
+                Email = grpcRequest.Email,
+                Password = grpcRequest.Password
+            };
+        }
+
+        public static DeserializedRegisterResponse DeserializeRegisterResponse(RegisterResponse grpcResponse)
+        {
+            return new DeserializedRegisterResponse
+            {
+                Success = grpcResponse.Success,
+                Message = grpcResponse.Message,
+                UserId = grpcResponse.UserId
+            };
+        }
     }
 }

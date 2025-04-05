@@ -1,4 +1,5 @@
-﻿using MiddleStepService.Models;
+﻿using GrpcTests.IntegrationTests.Helpers;
+using MiddleStepService.Models;
 using System.Net.Http.Json;
 using Xunit;
 
@@ -12,7 +13,7 @@ namespace GrpcTests.IntegrationTests.MiddleStepService
 
         public JiraBoardApiTests(TestBaseClass testBase)
         {
-            _sut = new HttpClient { BaseAddress = new Uri(MiddleStepApiAddress) };
+            _sut = AuthenticationHelper.GetClient(MiddleStepApiAddress).GetAwaiter().GetResult();
         }
 
         #region GetTask

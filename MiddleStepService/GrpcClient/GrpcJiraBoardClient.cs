@@ -2,14 +2,15 @@
 using Grpc.Net.Client;
 using JiraBoardgRPC;
 using MiddleStepService.Models;
+using MiddleStepService.Serializers;
 
 namespace MiddleStepService.GrpcClient
 {
-    public class GrpcClient
+    public class GrpcJiraBoardClient
     {
-        public static GrpcClient Instance => _instance.Value;
+        public static GrpcJiraBoardClient Instance => _instance.Value;
 
-        private static readonly Lazy<GrpcClient> _instance = new Lazy<GrpcClient>(() => new GrpcClient());
+        private static readonly Lazy<GrpcJiraBoardClient> _instance = new Lazy<GrpcJiraBoardClient>(() => new GrpcJiraBoardClient());
 
         private readonly JiraBoard.JiraBoardClient _client;
 
@@ -17,7 +18,7 @@ namespace MiddleStepService.GrpcClient
 
         private const string GrpcServerUrlAdress = "http://localhost:5107";
 
-        private GrpcClient()
+        private GrpcJiraBoardClient()
         {
             _channel = GrpcChannel.ForAddress(GrpcServerUrlAdress);
             _client = new JiraBoard.JiraBoardClient(_channel);
