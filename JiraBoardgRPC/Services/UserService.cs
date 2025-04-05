@@ -18,6 +18,12 @@ namespace JiraBoardgRPC.Services
         public override Task<UserResponse> GetUser(UserIdRequest request, ServerCallContext context)
         {
             var response = _dataBaseService.GetUser(request.Id);
+
+            if (response == null) 
+            {
+                throw new RpcException(new Status(StatusCode.NotFound, "User not found"));
+            }
+
             UserResponse userResponse = new UserResponse {Email = response.Email, Id = response.Id, FirstName = response.FirstName, LastName = response.LastName };
             return Task.FromResult(userResponse);
         }

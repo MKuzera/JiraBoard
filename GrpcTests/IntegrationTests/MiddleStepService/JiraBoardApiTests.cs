@@ -9,11 +9,9 @@ namespace GrpcTests.IntegrationTests.MiddleStepService
         protected const string MiddleStepApiAddress = "http://localhost:5255";
 
         private readonly HttpClient _sut;
-        private readonly TestBaseClass _testBase;
 
         public JiraBoardApiTests(TestBaseClass testBase)
         {
-            _testBase = testBase;
             _sut = new HttpClient { BaseAddress = new Uri(MiddleStepApiAddress) };
         }
 
@@ -118,32 +116,32 @@ namespace GrpcTests.IntegrationTests.MiddleStepService
 
         #endregion
 
-        #region UpdateTask
+        #region UpdateTaskStatus
 
         [Fact]
         public async Task UpdateTaskStatus_ShouldUpdateTaskStatus()
         {
+            // arrange
             var taskData = GetNewJiraTask();
             var response = await _sut.PostAsJsonAsync($"api/task", taskData);
             var taskID = response.Content.ReadAsStringAsync().Result;
             var jiraTask = GetJiraTask();
             jiraTask.Id = int.Parse(taskID);
-
             var statusID = 2;
+
+            // act
             var responseUpdate = await _sut.PostAsync($"api/task/{jiraTask.Id}/status/{statusID}", null);
 
+            // assert
             Assert.True(responseUpdate.IsSuccessStatusCode);
-
             var responseGet = await _sut.GetAsync($"api/task/{taskID}");
             Assert.True(responseGet.IsSuccessStatusCode);
             var content = await responseGet.Content.ReadAsStringAsync();
             Assert.NotNull(content);
-            Assert.Contains("In Test", content);
+            Assert.Contains("\"taskStatus\":2", content);
         }
 
         #endregion
-
-
 
         private DeserializedNewJiraTask GetNewJiraTask()
         {

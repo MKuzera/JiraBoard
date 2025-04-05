@@ -1,6 +1,5 @@
 ﻿using Grpc.Core;
 using Grpc.Net.Client;
-using GrpcTests.IntegrationTests;
 using JiraBoardgRPC;
 using Xunit;
 
@@ -8,13 +7,12 @@ namespace GrpcTests.IntegrationTests.GrpcService
 {
     public class JiraBoardTests : IClassFixture<TestBaseClass>
     {
-        protected const string GrpcServerUrlAdress = "http://localhost:5107";
-
         private JiraBoard.JiraBoardClient _sut;
-
         private readonly GrpcChannel _channel;
 
-        public JiraBoardTests()
+        public const string GrpcServerUrlAdress = "http://localhost:5107";
+
+        public JiraBoardTests(TestBaseClass fixture)
         {
             _channel = GrpcChannel.ForAddress(GrpcServerUrlAdress);
             _sut = new JiraBoard.JiraBoardClient(_channel);

@@ -1,39 +1,37 @@
-﻿using System;
-using System.Diagnostics;
-using System.IO;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using Xunit;
 
-public class TestBaseClass : IAsyncLifetime, IDisposable
+public class TestBaseClass : IAsyncLifetime
 {
     protected Process? _gRPCService = null;
-
     protected Process? _MiddleStepService = null;
+    private static readonly object _lockObject = new object();
 
     public async Task InitializeAsync()
     {
-        if (_gRPCService is null)
+        lock (_lockObject)
         {
-            _gRPCService = StartProcess("JiraBoardgRPC\\JiraBoardgRPC.csproj");
-            await Task.Delay(5000); 
+            if (_gRPCService is null)
+            {
+                _gRPCService = StartProcess("JiraBoardgRPC\\JiraBoardgRPC.csproj");
+            }
+
+            if (_MiddleStepService is null)
+            {
+                _MiddleStepService = StartProcess("MiddleStepService\\MiddleStepService.csproj");
+            }
         }
 
-        if (_MiddleStepService is null)
-        {
-            _MiddleStepService = StartProcess("MiddleStepService\\MiddleStepService.csproj");
-            await Task.Delay(5000);
-        }
+        await Task.Delay(10000); 
     }
 
-    public Task DisposeAsync() => Task.CompletedTask;
-
-    public void Dispose()
+    public Task DisposeAsync()
     {
         _gRPCService?.Kill();
         _gRPCService?.Dispose();
-
         _MiddleStepService?.Kill();
         _MiddleStepService?.Dispose();
+        return Task.CompletedTask;
     }
 
     private Process StartProcess(string projectPath)
