@@ -67,6 +67,14 @@ namespace MiddleStepService.GrpcClient
             return response.Message;
         }
 
+        public async Task<string> AddCommentToTaskAsync(int taskID, string commentText, int authorID)
+        {      
+            var task = await GetTaskAsync(taskID);
+            task.Comments.Add(new Models.Comment { AuthorId = authorID, Value = commentText, CommentDate = DateTime.Now.ToString("yyyy-MM-dd") });
+            string result = await UpdateTaskAsync(task);
+            return result;
+        }
+
         public void Dispose()
         {
             _channel?.Dispose();

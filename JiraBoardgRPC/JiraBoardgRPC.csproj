@@ -8,9 +8,13 @@
 
   <ItemGroup>
     <None Remove="Protos\JiraBoard.proto" />
+    <None Remove="Protos\user.proto" />
+    <None Remove="Protos\userauth.proto" />
   </ItemGroup>
 
   <ItemGroup>
+    <Protobuf Include="Protos\user.proto" GrpcServices="Server" />
+    <Protobuf Include="Protos\userauth.proto" GrpcServices="Server" />
     <Protobuf Include="Protos\jiraBoard.proto" GrpcServices="Server" />
   </ItemGroup>
 

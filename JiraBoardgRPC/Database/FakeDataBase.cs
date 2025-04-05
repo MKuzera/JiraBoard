@@ -1,10 +1,39 @@
 ﻿namespace JiraBoardgRPC.FakeDataBase
 {
     /// <summary>
-    /// This is a FakeDataBase. It will be used as a test data. Later proper MongoDB database connection should be established. List of Tasks is AI generated.
+    /// This is a FakeDataBase. It will be used as a test data. Later proper MongoDB database connection should be established.
+    /// User data such like password should be encrypted in database.
     /// </summary>
     public class FakeDatabase : IDataBaseService
     {
+        List<UserModel> users = new List<UserModel>
+        {
+            new UserModel
+            {
+                FirstName = "Jan",
+                LastName = "Kowalski",
+                Email = "jan.kowalski@example.com",
+                Id = 1,
+                Password = "123"
+            },
+            new UserModel
+            {
+                FirstName = "Anna",
+                LastName = "Nowak",
+                Email = "anna.nowak@example.com",
+                Id = 2,
+                Password = "123"
+            },
+            new UserModel
+            {
+                FirstName = "Marek",
+                LastName = "Zielinski",
+                Email = "marek.zielinski@example.com",
+                Id = 3,
+                Password = "123"
+            }
+        };
+
         public static List<JiraTask> JiraTasks { get; } = new List<JiraTask>
         {
             new JiraTask {
@@ -96,6 +125,23 @@
         public int GetLastId()
         {
             return JiraTasks.Last().Id;
+        }
+
+        public UserModel GetUser(string email)
+        {
+            return users.FirstOrDefault(users =>  users.Email == email);
+        }
+
+        public UserModel GetUser(int id)
+        {
+            return users.FirstOrDefault(users => users.Id == id);
+        }
+
+        public int AddUser(string email, string password, string firstName, string lastName)
+        {
+            int newId = users.Last().Id + 1;
+            users.Add(new UserModel { Email = email, Password = password, FirstName = firstName, LastName = lastName , Id = newId});
+            return newId;
         }
     }
 }

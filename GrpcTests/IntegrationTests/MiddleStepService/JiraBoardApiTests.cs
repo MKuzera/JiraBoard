@@ -118,6 +118,33 @@ namespace GrpcTests.IntegrationTests.MiddleStepService
 
         #endregion
 
+        #region UpdateTask
+
+        [Fact]
+        public async Task UpdateTaskStatus_ShouldUpdateTaskStatus()
+        {
+            var taskData = GetNewJiraTask();
+            var response = await _sut.PostAsJsonAsync($"api/task", taskData);
+            var taskID = response.Content.ReadAsStringAsync().Result;
+            var jiraTask = GetJiraTask();
+            jiraTask.Id = int.Parse(taskID);
+
+            var statusID = 2;
+            var responseUpdate = await _sut.PostAsync($"api/task/{jiraTask.Id}/status/{statusID}", null);
+
+            Assert.True(responseUpdate.IsSuccessStatusCode);
+
+            var responseGet = await _sut.GetAsync($"api/task/{taskID}");
+            Assert.True(responseGet.IsSuccessStatusCode);
+            var content = await responseGet.Content.ReadAsStringAsync();
+            Assert.NotNull(content);
+            Assert.Contains("In Test", content);
+        }
+
+        #endregion
+
+
+
         private DeserializedNewJiraTask GetNewJiraTask()
         {
             return new DeserializedNewJiraTask
