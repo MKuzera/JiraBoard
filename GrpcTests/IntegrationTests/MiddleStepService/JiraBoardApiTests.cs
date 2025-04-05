@@ -7,13 +7,11 @@ namespace GrpcTests.IntegrationTests.MiddleStepService
 {
     public class JiraBoardApiTests : IClassFixture<TestBaseClass>
     {
-        protected const string MiddleStepApiAddress = "http://localhost:5255";
-
         private readonly HttpClient _sut;
 
         public JiraBoardApiTests(TestBaseClass testBase)
         {
-            _sut = AuthenticationHelper.GetClient(MiddleStepApiAddress).GetAwaiter().GetResult();
+            _sut = AuthenticationHelper.GetClient(Constants.MiddleStepApiAddress).GetAwaiter().GetResult();
         }
 
         #region GetTask

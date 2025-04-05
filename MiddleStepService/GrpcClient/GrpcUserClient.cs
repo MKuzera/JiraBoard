@@ -1,4 +1,5 @@
-﻿using Grpc.Net.Client;
+﻿using Grpc.Core;
+using Grpc.Net.Client;
 using JiraBoardgRPC;
 using MiddleStepService.Models;
 
@@ -25,9 +26,17 @@ namespace MiddleStepService.GrpcClient
         public async Task<DeserializedUserResponse> GetUserAsync(int userID)
         {
             UserIdRequest userIdRequest = new UserIdRequest { Id = userID };
-            var response = await _client.GetUserAsync(userIdRequest);
-            DeserializedUserResponse deserializedUserResponse = Deserializer.DeserializeUserResponse(response);
-            return deserializedUserResponse;
+            try
+            {
+                var response = await _client.GetUserAsync(userIdRequest);
+                DeserializedUserResponse deserializedUserResponse = Deserializer.DeserializeUserResponse(response);
+                return deserializedUserResponse;
+            }
+            catch (RpcException ex) when (ex.StatusCode == StatusCode.NotFound)
+            {
+                return null;
+            }
+          
         }
 
         public void Dispose()

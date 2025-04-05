@@ -17,7 +17,7 @@ namespace GrpcTests.IntegrationTests.Helpers
 
             var loginResponse = await httpClient.PostAsJsonAsync("api/login", loginRequest);
             loginResponse.EnsureSuccessStatusCode();
-            var loginResult = await loginResponse.Content.ReadFromJsonAsync<LoginResponseWithtoken>();
+            var loginResult = await loginResponse.Content.ReadFromJsonAsync<LoginResponseWithToken>();
 
             httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", loginResult.Token);
 

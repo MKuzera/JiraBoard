@@ -19,7 +19,7 @@ namespace MiddleStepService.Controllers
         private readonly string _audience = "your-audience";
 
         [HttpPost("login")]
-        public ActionResult<LoginResponseWithtoken> LoginUser([FromBody] DeserializedLoginRequest loginRequest)
+        public ActionResult<LoginResponseWithToken> LoginUser([FromBody] DeserializedLoginRequest loginRequest)
         {
             if (loginRequest == null || string.IsNullOrEmpty(loginRequest.Email) || string.IsNullOrEmpty(loginRequest.Password))
             {
@@ -32,7 +32,7 @@ namespace MiddleStepService.Controllers
                 if (deserializedLoginResponse.Success)
                 {
                     var token = GenerateJwtToken(deserializedLoginResponse.UserId, deserializedLoginResponse.Message);
-                    LoginResponseWithtoken loginResponseWithtoken = new LoginResponseWithtoken
+                    LoginResponseWithToken loginResponseWithtoken = new LoginResponseWithToken
                     {
                         Token = token,
                         Success = true,
@@ -66,7 +66,7 @@ namespace MiddleStepService.Controllers
             }
             catch (RpcException ex) when (ex.StatusCode == Grpc.Core.StatusCode.AlreadyExists)
             {
-                return NotFound("User with that email already exists.");
+                return Conflict("User with that email already exists.");
             }
         }
 

@@ -13,6 +13,10 @@ namespace MiddleStepService.Controllers
         public ActionResult<DeserializedUserResponse> GetUser(int userID)
         {
            DeserializedUserResponse response = GrpcClient.GrpcUserClient.Instance.GetUserAsync(userID).GetAwaiter().GetResult();
+            if (response == null) 
+            {
+                return NotFound();
+            }
            return new JsonResult(response);
         }
     }

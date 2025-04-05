@@ -1,5 +1,6 @@
 ﻿using Grpc.Core;
 using Grpc.Net.Client;
+using GrpcTests.IntegrationTests.Helpers;
 using JiraBoardgRPC;
 using Xunit;
 
@@ -11,11 +12,9 @@ namespace GrpcTests.IntegrationTests.GrpcService
 
         private readonly GrpcChannel _channel;
 
-        public const string GrpcServerUrlAdress = "http://localhost:5107";
-
         public UserTests(TestBaseClass fixture)
         {
-            _channel = GrpcChannel.ForAddress(GrpcServerUrlAdress);
+            _channel = GrpcChannel.ForAddress(Constants.GrpcServerUrlAdress);
             _sut = new User.UserClient(_channel);
         }
 

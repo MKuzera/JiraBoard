@@ -28,7 +28,7 @@
         public int UserId { get; set; }
     }
 
-    public class LoginResponseWithtoken
+    public class LoginResponseWithToken
     {
         public bool Success { get; set; }
         public string Message { get; set; }
