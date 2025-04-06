@@ -17,6 +17,7 @@ namespace GrpcTests.IntegrationTests.GrpcService
             _channel = GrpcChannel.ForAddress(Constants.GrpcServerUrlAdress);
             _sut = new User.UserClient(_channel);
         }
+        #region GetUser
 
         [Fact]
         public async Task GetUser_ShouldReturnUser_WhenExists()
@@ -44,5 +45,7 @@ namespace GrpcTests.IntegrationTests.GrpcService
             Assert.Equal(StatusCode.NotFound, exception.StatusCode);
             Assert.Equal("User not found", exception.Status.Detail);
         }
+
+        #endregion
     }
 }

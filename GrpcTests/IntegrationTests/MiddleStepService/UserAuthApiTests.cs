@@ -13,6 +13,7 @@ namespace GrpcTests.IntegrationTests.MiddleStepService
         {
             _sut = AuthenticationHelper.GetClient(Constants.MiddleStepApiAddress).GetAwaiter().GetResult();
         }
+        #region Register
 
         [Fact]
         public async Task Register_ShouldRegisterUser()
@@ -60,6 +61,10 @@ namespace GrpcTests.IntegrationTests.MiddleStepService
             Assert.Equal(response.StatusCode, System.Net.HttpStatusCode.Conflict);
         }
 
+        #endregion
+
+        #region Login
+
         [Fact]
         public async Task Login_ShouldReturnUser_WhenExists()
         {
@@ -102,5 +107,7 @@ namespace GrpcTests.IntegrationTests.MiddleStepService
             Assert.False(response.IsSuccessStatusCode);
             Assert.Equal(System.Net.HttpStatusCode.NotFound, response.StatusCode);
         }
+
+        #endregion
     }
 }

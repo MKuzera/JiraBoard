@@ -18,6 +18,8 @@ namespace GrpcTests.IntegrationTests.GrpcService
             _sut = new JiraBoard.JiraBoardClient(_channel);
         }
 
+        #region GetTask
+
         [Fact]
         public async Task GetTask_ShouldReturnTask_WhenTaskExists()
         {
@@ -45,6 +47,9 @@ namespace GrpcTests.IntegrationTests.GrpcService
             Assert.Equal("Task with ID 999 not found", exception.Status.Detail);
         }
 
+        #endregion
+
+        #region GetAllTask
 
         [Fact]
         public async Task GetALlTasks_ShoudlReturnAllTasks()
@@ -66,6 +71,10 @@ namespace GrpcTests.IntegrationTests.GrpcService
             Assert.NotEmpty(tasks);
         }
 
+        #endregion
+
+        #region CreateTask
+
         [Fact]
         public async Task CreateTask_ShouldReturnSuccess_WhenTaskIsCreated()
         {
@@ -84,6 +93,10 @@ namespace GrpcTests.IntegrationTests.GrpcService
             await _sut.DeleteTaskAsync(new TaskID { TaskId = int.Parse(response.Message) });
         }
 
+        #endregion
+
+        #region UpdateTask
+
         [Fact]
         public async Task UpdateTask_ShouldReturnSuccess_WhenTaskIsUpdated()
         {
@@ -99,6 +112,9 @@ namespace GrpcTests.IntegrationTests.GrpcService
             Assert.Equal("Task updated successfully", response.Message);
         }
 
+        #endregion
+
+        #region DeleteTask
 
         [Fact]
         public async Task DeleteTask_ShouldReturnSuccess_WhenTaskIsDeleted()
@@ -115,6 +131,8 @@ namespace GrpcTests.IntegrationTests.GrpcService
             Assert.True(response.Success);
             Assert.Equal("Task deleted successfully", response.Message);
         }
+
+        #endregion
 
         private NewJiraTask GetNewJiraTask()
         {

@@ -18,6 +18,8 @@ namespace GrpcTests.IntegrationTests.GrpcService
             _sut = new UserAuth.UserAuthClient(_channel);
         }
 
+        #region Register
+
         [Fact]
         public async Task Register_ShouldRegisterUser()
         {
@@ -57,6 +59,10 @@ namespace GrpcTests.IntegrationTests.GrpcService
             Assert.Equal(StatusCode.AlreadyExists, exception.StatusCode);
             Assert.Equal("User already exists", exception.Status.Detail);
         }
+
+        #endregion
+
+        #region Login
 
         [Fact]
         public async Task Login_ShouldReturnUserIfExists()
@@ -110,5 +116,7 @@ namespace GrpcTests.IntegrationTests.GrpcService
             Assert.Equal(StatusCode.PermissionDenied, exception.StatusCode);
             Assert.Equal("Invalid password", exception.Status.Detail);
         }
+
+        #endregion
     }
 }
