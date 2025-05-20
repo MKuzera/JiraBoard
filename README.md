@@ -82,25 +82,6 @@ Add Task:
 
 - **Next.js:** The frontend client is built using **Next.js**, a React-based framework for building server-side rendered (SSR) web applications. It provides an efficient way to build dynamic web interfaces with fast rendering times, as well as offering features like routing, static site generation (SSG), and API routes. Next.js helps create a seamless user experience, integrating smoothly with the backend services.
 
-- **SOLID Principles:** The project adheres to the **SOLID** principles of object-oriented design to ensure code maintainability, scalability, and clarity:
-    - **Single Responsibility Principle (SRP):** Each service and class has one responsibility, making the codebase more modular and easier to test.
-      - **Ex.** Every controller is responsible only for handling HTTP requests and returning responses. For example, a `JiraBoardController` handles only JiraBoard-related actions (e.g., creating, updating, deleting tasks on board), while a separate `UserAuthController` handles authentication tasks.
-    
-    - **Open/Closed Principle (OCP):** The design is open for extension but closed for modification, meaning new features can be added without altering existing code.
-      - **Ex.** If a new feature is required, such as logging every request, a new logging service can be introduced without changing the existing controller logic.
-    
-    - **Liskov Substitution Principle (LSP):** Derived classes can be substituted for their base classes without affecting the correctness of the application.
-      - **Ex.** For now, there is no example in this project that directly demonstrates LSP. However, this principle will apply once we introduce inheritance and polymorphism. Derived classes should be able to replace base classes without causing errors or changing the expected behavior of the system.
-    
-    - **Interface Segregation Principle (ISP):** Services and classes only implement methods that they actually need, ensuring they are not bloated with unnecessary functionality.
-      - **Ex.** No method in this project is unused. The classes and services are designed to implement only the methods they need, avoiding unnecessary dependencies and keeping the codebase lean. 
-
-    - **Dependency Inversion Principle (DIP):** High-level modules depend on abstractions (interfaces), not on concrete implementations, improving the flexibility and testability of the system.
-      - **Ex.** Instead of directly instantiating a database service in a class, an interface like `IDatabaseService` is used. This allows the service to be easily swapped out (e.g., from an SQL database to a NoSQL database) without changing the high-level logic. This abstraction also allows for easier unit testing by mocking dependencies.
-
-
-
-
 **Next Goals to Improve This Application:**
 
 - Introduce a NoSQL database for data storage (this might be implemented in this project or a separate one for another course)
